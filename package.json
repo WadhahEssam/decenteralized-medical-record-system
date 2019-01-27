@@ -7,8 +7,6 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@babel/runtime": "^7.3.1",
-    "babel-runtime": "^6.26.0",
     "fs": "^0.0.1-security",
     "fs-extra": "^7.0.0",
     "ganache-cli": "^6.1.8",
@@ -17,7 +15,9 @@
     "truffle-hdwallet-provider": "0.0.3",
     "web3": "^1.0.0-beta.26"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webpack": "^4.20.2"
+  },
   "scripts": {
     "test": "mocha"
   },

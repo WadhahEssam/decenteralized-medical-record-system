@@ -1,26 +1,25 @@
 const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const assert = require('assert');
-const { interface, bytecode } = require('../compile');
+const compiledMedicalRecordsSystem = require('../build/MedicalRecordsSystem.json');
+const compiledMedicalRecord = require('../build/MedicalRecord.json');
 
 const provider = ganache.provider();
-const web3 = new Web3();
-web3.setProvider(provider);
+const web3 = new Web3(provider);
 
-let accounts, medicalRecordSystemContract;
+let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
 
-before( async () => {
+beforeEach( async () => {
   accounts = await web3.eth.getAccounts();
-  ministryOfHelath = accounts[0];
-  hospitalOne = accounts[1];
-  hospitalTwo = accounts[2];
-  pharmacyOne = accounts[3];
-  pharmacyTwo = accounts[4];
-  medicalRecordSystemContract = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode, arguments: [] })
-    .send({ from: deployer, gas:'1000000' });
+  medicalRecordsSystemContract = await new web3.eth.Contract(JSON.parse(compiledMedicalRecordsSystem.interface))
+    .deploy({ data: compiledMedicalRecordsSystem.bytecode })
+    .send({ from: accounts[0], gas: '1000000' });
+
+  medicalRecordsSystemContract.setProvider(provider);
 });
+
+
 
 describe('MedicalRecordSystem Contract', async () => {
 
