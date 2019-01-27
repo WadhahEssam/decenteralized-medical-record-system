@@ -1,35 +1,29 @@
 {
-  "name": "decenteralized-medical-record-system",
-  "version": "1.0.0",
-  "description": "hello",
-  "main": "compile.js",
-  "directories": {
-    "test": "mocha"
+  "name": "blockchain-croud-funding-application",
+  "version": "0.0.1",
+  "description": "solving the kickstarter problems with blockchain",
+  "main": "]",
+  "scripts": {
+    "test": "mocha",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
+  "author": "Wadah",
+  "license": "MIT",
   "dependencies": {
-    "fs": "^0.0.1-security",
     "fs-extra": "^7.0.0",
     "ganache-cli": "^6.1.8",
     "mocha": "^5.2.0",
+    "next": "^7.0.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "semantic-ui-react": "^0.82.5",
     "solc": "^0.4.25",
     "truffle-hdwallet-provider": "0.0.3",
     "web3": "^1.0.0-beta.26"
   },
   "devDependencies": {
     "webpack": "^4.20.2"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WadhahEssam/decenteralized-medical-record-system.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/WadhahEssam/decenteralized-medical-record-system/issues"
-  },
-  "homepage": "https://github.com/WadhahEssam/decenteralized-medical-record-system#readme"
+  }
 }
