@@ -3,7 +3,9 @@ const ganache = require('ganache-cli');
 const assert = require('assert');
 const { interface, bytecode } = require('../compile');
 
-const web3 = new Web3(ganache.provider());
+const provider = ganache.provider();
+const web3 = new Web3();
+web3.setProvider(provider);
 
 let accounts, medicalRecordSystemContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
