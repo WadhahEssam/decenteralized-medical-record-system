@@ -1,9 +1,13 @@
 const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const assert = require('assert');
-const { interface, bytecode } = require('../compile');
+const compiledContracts = require('../compile');
 
-const web3 = new Web3(ganache.provider());
+const provider = ganache.provider();
+const web3 = new Web3();
+web3.setProvider(provider);
+
+console.log(web3);
 
 let accounts, medicalRecordSystemContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
@@ -18,6 +22,7 @@ before( async () => {
   medicalRecordSystemContract = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({ data: bytecode, arguments: [] })
     .send({ from: deployer, gas:'1000000' });
+  medicalRecordSystemContract.setProvider(provider);
 });
 
 describe('MedicalRecordSystem Contract', async () => {
