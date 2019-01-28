@@ -26,9 +26,26 @@ describe('MedicalRecordSystem Contract', async () => {
     assert.ok(medicalRecordsSystemContract.options.address);
   });
 
-  it('minisity of health can add hospital', async () => {
+  it('can add hospital by the minisity of healt', async () => {
     await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
     const hospitalAddress = await medicalRecordsSystemContract.methods.hospitalAddresses(0).call();
     assert.equal(hospitalOne, hospitalAddress);
+  });
+
+  it('creates a medical record contract', async () => {
+    await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Wadhah Essam').send({ from: hospitalOne, gas: '1000000' });
+    let checkMedicalRecord = await medicalRecordsSystemContract.methods.checkMedicalRecord(435108270).call();
+    assert.equal(true, checkMedicalRecord);
+  });
+
+  it('can return the address of the medical record', async () => {
+    await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Mohammed').send({ from: hospitalOne, gas: '1000000' });
+    let medicalRecordAddress = await medicalRecordsSystemContract.methods.getMedicalRecord(435108270).call();
+    let newMedicalRecordsSystemContract = await new web3.eth.Contract(
+      JSON.parse(compiledMedicalRecord.interface), 
+      medicalRecordAddress
+    ); 
+    let patientName = await newMedicalRecordsSystemContract.methods.name().call();
+    assert.equal('Mohammed', patientName);
   });
 }); 
