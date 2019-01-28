@@ -6,16 +6,16 @@ const buildPath = path.resolve(__dirname, 'build');
 
 fs.removeSync(buildPath);
 
-const contractPath = path.resolve(__dirname, 'contracts', 'MedicalRecordsSystem.sol');
-const contractPath2 = path.resolve(__dirname, 'contracts', 'MedicalRecord.sol');
+const medicalRecordsSystemPath = path.resolve(__dirname, 'contracts', 'MedicalRecordsSystem.sol');
+const medicalRecordSystemSource = fs.readFileSync(medicalRecordsSystemPath, 'utf8');
 
-const source = fs.readFileSync(contractPath, 'utf8');
-const source2 = fs.readFileSync(contractPath2, 'utf8');
+const medicalRecordPath = path.resolve(__dirname, 'contracts', 'MedicalRecord.sol');
+const medicalRecordSource = fs.readFileSync(medicalRecordPath, 'utf8');
 
 const input = {
   sources: {
-    'MedicalRecordsSystem.sol': source,
-    'MedicalRecord.sol': source2
+    'MedicalRecordsSystem.sol': medicalRecordSystemSource,
+    'MedicalRecord.sol': medicalRecordSource
   }
 };
 
