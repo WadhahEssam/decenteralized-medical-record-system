@@ -56,9 +56,20 @@ contract MedicalRecordsSystem {
 contract MedicalRecord {
     string public name;
     uint256 public nationalID;
+    string public date;
+    string public phoneNumber;
+    string public gender;
+    string public bloodType;
+    string[] public emergencyContants;
+    // Diagnosis[] public diagnosisList;
+    // DrugPrescription[] public drugPrescription;
+    // Surgery[] public surgeries;
+    // LaboratoryTest[] public laboratoryTests;
+    // BloodDonation[] public bloodDonations;
     
     constructor(uint256 nationalIDI, string memory nameI) public {
         name = nameI;
         nationalID = nationalIDI;
     }
 }
+

@@ -62,10 +62,4 @@ describe('MedicalRecordSystem Contract', async () => {
     let patientName = await newMedicalRecordsSystemContract.methods.name().call();
     assert.equal(patientName, 'Mohammed');
   });
-
-
-
-
-
-
 }); 
