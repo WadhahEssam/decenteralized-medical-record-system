@@ -2,17 +2,16 @@ pragma solidity >=0.4.25;
 
 contract MedicalRecordsSystem {
     address public ministryOfHealth;
-    // MedicalRecord[] public medicalRecords;
     mapping(uint256 => address) public medicalRecords;
-    address[] public hospitalAddresses;
-    address[] public pharmaciesAddresses;
+    mapping(address => bool) public hospitalAddresses;
+    mapping(address => bool) public pharmacyAddresses;
     address private noAddress = address(0x0000000000000000000000000);
     
     constructor() public {
         ministryOfHealth = msg.sender;
     }
     
-    function createMedicalRecord(uint256 nationalID, string memory name) public {
+    function createMedicalRecord(uint256 nationalID, string memory name) public onlyHospitalsAndPharmacies {
         MedicalRecord newMedicalRecord = new MedicalRecord(nationalID, name);
         medicalRecords[nationalID] = address(newMedicalRecord);
     }
@@ -34,16 +33,22 @@ contract MedicalRecordsSystem {
         }
     }
     
-    function addHospital(address hospitalAddress) public restrected {
-        hospitalAddresses.push(hospitalAddress);
+    function addHospital(address hospitalAddressI) public onlyMinistryOfHealth {
+        hospitalAddresses[hospitalAddressI] = true;
     }
     
-    function addPharmacy(address pharmacyAddress) public restrected {
-        pharmaciesAddresses.push(pharmacyAddress);
+    function addPharmacy(address pharmacyAddressI) public onlyMinistryOfHealth {
+        pharmacyAddresses[pharmacyAddressI] = true;
     }
     
-    modifier restrected() {
-        require(msg.sender == ministryOfHealth,"Nor Authorized Request");
+    
+    modifier onlyHospitalsAndPharmacies() {
+        require(hospitalAddresses[msg.sender] == true, "Only hospitals can do this operation");
+        _;
+    }
+    
+    modifier onlyMinistryOfHealth() {
+        require(msg.sender == ministryOfHealth, "Only Ministry of health can do this operation");
         _;
     }
 }

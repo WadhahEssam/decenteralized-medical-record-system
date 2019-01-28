@@ -15,6 +15,8 @@ beforeEach( async () => {
   ministryOfHelath = accounts[0];
   hospitalOne = accounts[1];
   hospitalTwo = accounts[2];
+  pharmacyOne = accounts[3];
+  pharmacyTwo = accounts[4];
 
   medicalRecordsSystemContract = await new web3.eth.Contract(JSON.parse(compiledMedicalRecordsSystem.interface))
     .deploy({ data: compiledMedicalRecordsSystem.bytecode })
@@ -26,19 +28,31 @@ describe('MedicalRecordSystem Contract', async () => {
     assert.ok(medicalRecordsSystemContract.options.address);
   });
 
-  it('can add hospital by the minisity of healt', async () => {
+  it('can add hospitals by the ministry of health', async () => {
     await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
-    const hospitalAddress = await medicalRecordsSystemContract.methods.hospitalAddresses(0).call();
-    assert.equal(hospitalOne, hospitalAddress);
+    assert.equal(await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call(), true);
   });
 
-  it('creates a medical record contract', async () => {
+  it('can add pharmacies by the ministry of health', async () => {
+    await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne).send({ from: ministryOfHelath, gas: '1000000' });
+    assert.equal(await medicalRecordsSystemContract.methods.pharmacyAddresses(pharmacyOne).call(), true);
+  });
+
+  it('creates a medical record by hospitals', async () => {
+    // add the hospital
+    await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
+    assert.equal(await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call(), true);
+    // create medical record
     await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Wadhah Essam').send({ from: hospitalOne, gas: '1000000' });
     let checkMedicalRecord = await medicalRecordsSystemContract.methods.checkMedicalRecord(435108270).call();
-    assert.equal(true, checkMedicalRecord);
+    assert.equal(checkMedicalRecord, true);
   });
 
   it('can return the address of the medical record', async () => {
+    // add the hospital
+    await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
+    assert.equal(true, await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call());
+    // create medical record
     await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Mohammed').send({ from: hospitalOne, gas: '1000000' });
     let medicalRecordAddress = await medicalRecordsSystemContract.methods.getMedicalRecord(435108270).call();
     let newMedicalRecordsSystemContract = await new web3.eth.Contract(
@@ -46,6 +60,12 @@ describe('MedicalRecordSystem Contract', async () => {
       medicalRecordAddress
     ); 
     let patientName = await newMedicalRecordsSystemContract.methods.name().call();
-    assert.equal('Mohammed', patientName);
+    assert.equal(patientName, 'Mohammed');
   });
+
+
+
+
+
+
 }); 
