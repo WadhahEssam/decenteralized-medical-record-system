@@ -23,56 +23,69 @@ contract MedicalRecord {
         bloodType = bloodTypeI;
         emergencyContacts.push(emergencyContactI); 
     }
+
+    function setPhoneNumber(string memory _phoneNumber) public{
+        phoneNumber = _phoneNumber;
+    }
+
+    function addEmergencyContact(string phoneNumber) public {
+        // TODO: addEmergencyContact
+    }
 }
 
-    
 
-    
+//  wadah : address is saved automatically for any contract 
 //     constructor() public {
 //         medicalRecordAddress = msg.sender;
 //     }
-    
+
+// wadah : national id must not be changed
 //     function setNationalID(string memory _nationalID) public{
 //         nationalID = _nationalID;
 //     }
-    
+
+// wadah : getters are provided automatically by solidity 
 //     function getNationalID() public view returns(string memory){
 //         return nationalID;
 //     }
-    
-    
-//     function setPhoneNumber(string memory _phoneNumber) public{
-//         phoneNumber = _phoneNumber;
-//     }
-    
+
+// wadah : getters are provided automatically by solidity 
 //     function getPhoneNumber() public view returns(string memory){
 //         return phoneNumber;
 //     }
-    
+
+// wadah : gender can't change
 //     function setGender(string memory _gender) public{
 //         gender = _gender;
 //     }
-    
+
+// wadah : getters are provided automatically by solidity 
 //     function getGender() public view returns(string memory){
 //         return gender;
 //     }
-    
+
+// wadah : blood type can't change
 //       function setBloodType(string memory _bloodType) public{
 //         bloodType = _bloodType;
 //     }
-    
+
+
+// wadah : getters are provided automatically by solidity 
 //     function getBloodType() public view returns(string memory){
 //         return bloodType;
 //     }
     
-
-//     function addEmergencyContact(string phoneNumber) public {
-//         // TODO: addEmergencyContact
-//     }
-
+// wadah : getters are provided automatically by solidity 
 //     function getEmergencyContacts() public view returns (string[]){
 //         // TODO: getEmergencyContacts
 //     }
+
+// wadah : all the objects should be as struct or library not as contracts
+// creating a contract in ethereum takes more time + more gas +
+// you should get its address then access it, picture having 
+// a 100 diagnosis , in order to access them one by one you need 
+// to get the address of every single one and access it individually 
+
 
 //     function addDiognosis(Diagnosis diagnosis) public{
 //         // TODO: addDiognosis
@@ -129,22 +142,21 @@ contract MedicalRecord {
 // }
 
 //     contract Surgery{
-       
-//         string public name;
-        
+//         string public name;  
+
 //         constructor() public{
 //             name = "Surgery";
 //         }
-        
 //     }
     
 //     contract LaboratoryTest{
 //         string public name;
-        
+
 //         constructor() public{
 //              name = "LaboratoryTest";
 //         }
 //     }
+
 //     contract BloodDonation{
 //        string public name;
         
