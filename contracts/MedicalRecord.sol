@@ -14,15 +14,19 @@ contract MedicalRecord {
     // LaboratoryTest[] public laboratoryTests;
     // BloodDonation[] public bloodDonations;
     
-    constructor(uint256 nationalIDI, string memory nameI) public {
+    constructor(uint256 nationalIDI, string memory nameI, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContantI) public {
         name = nameI;
         nationalID = nationalIDI;
+        date = dateI;
+        phoneNumber = phoneNumberI;
+        gender = genderI;
+        bloodType = bloodTypeI;
+        emergencyContants.push(emergencyContantI); 
     }
 }
 
 
     
-
 
     
 //     constructor() public {
