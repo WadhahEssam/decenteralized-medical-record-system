@@ -7,24 +7,23 @@ contract MedicalRecord {
     string public phoneNumber;
     string public gender;
     string public bloodType;
-    string[] public emergencyContants;
+    string[] public emergencyContacts;
     // Diagnosis[] public diagnosisList;
     // DrugPrescription[] public drugPrescription;
     // Surgery[] public surgeries;
     // LaboratoryTest[] public laboratoryTests;
     // BloodDonation[] public bloodDonations;
     
-    constructor(uint256 nationalIDI, string memory nameI, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContantI) public {
+    constructor(uint256 nationalIDI, string memory nameI, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContactI) public {
         name = nameI;
         nationalID = nationalIDI;
         date = dateI;
         phoneNumber = phoneNumberI;
         gender = genderI;
         bloodType = bloodTypeI;
-        emergencyContants.push(emergencyContantI); 
+        emergencyContacts.push(emergencyContactI); 
     }
 }
-
 
     
 
