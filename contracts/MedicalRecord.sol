@@ -34,53 +34,53 @@ contract MedicalRecord {
 }
 
 
-//  wadah : address is saved automatically for any contract 
+//  note : address is saved automatically for any contract 
 //     constructor() public {
 //         medicalRecordAddress = msg.sender;
 //     }
 
-// wadah : national id must not be changed
+// note : national id must not be changed
 //     function setNationalID(string memory _nationalID) public{
 //         nationalID = _nationalID;
 //     }
 
-// wadah : getters are provided automatically by solidity 
+// note : getters are provided automatically by solidity 
 //     function getNationalID() public view returns(string memory){
 //         return nationalID;
 //     }
 
-// wadah : getters are provided automatically by solidity 
+// note : getters are provided automatically by solidity 
 //     function getPhoneNumber() public view returns(string memory){
 //         return phoneNumber;
 //     }
 
-// wadah : gender can't change
+// note : gender can't change
 //     function setGender(string memory _gender) public{
 //         gender = _gender;
 //     }
 
-// wadah : getters are provided automatically by solidity 
+// note : getters are provided automatically by solidity 
 //     function getGender() public view returns(string memory){
 //         return gender;
 //     }
 
-// wadah : blood type can't change
+// note : blood type can't change
 //       function setBloodType(string memory _bloodType) public{
 //         bloodType = _bloodType;
 //     }
 
 
-// wadah : getters are provided automatically by solidity 
+// note : getters are provided automatically by solidity 
 //     function getBloodType() public view returns(string memory){
 //         return bloodType;
 //     }
     
-// wadah : getters are provided automatically by solidity 
+// note : getters are provided automatically by solidity 
 //     function getEmergencyContacts() public view returns (string[]){
 //         // TODO: getEmergencyContacts
 //     }
 
-// wadah : all the objects should be as struct or library not as contracts
+// note : all the objects should be as struct or library not as contracts
 // creating a contract in ethereum takes more time + more gas +
 // you should get its address then access it, picture having 
 // a 100 diagnosis , in order to access them one by one you need 
