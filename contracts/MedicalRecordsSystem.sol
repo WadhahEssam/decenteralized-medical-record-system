@@ -12,7 +12,15 @@ contract MedicalRecordsSystem {
         ministryOfHealth = msg.sender;
     }
     
-    function createMedicalRecord(uint256 nationalID, string memory name, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContantI) public onlyHospitalsAndPharmacies {
+    function createMedicalRecord(
+        uint256 nationalID, 
+        string memory name, 
+        string memory dateI, 
+        string memory phoneNumberI, 
+        string memory genderI, 
+        string memory bloodTypeI, 
+        string memory emergencyContantI
+    ) public onlyHospitalsAndPharmacies {
         MedicalRecord newMedicalRecord = new MedicalRecord(nationalID, name, dateI, phoneNumberI, genderI, bloodTypeI, emergencyContantI);
         medicalRecords[nationalID] = address(newMedicalRecord);
     }
