@@ -1,0 +1,18 @@
+// this is information on how the system will be deployed
+// 1) use a program called ganache ( this program simulates a ethereum network and provides you with multaiable accounts and have multiable configrations ) 
+// 2) after you install it, copy the wordsseed and go to metamask and click on logout, there will be an option for logging throw different wordsseed, 
+// 3) paste the word seed from ganache here 
+// no in order to connect web3 to the ganache provider you put this line 
+// var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+// you might need to have a fixed wordseed so it doesn't regenerate them every time you open ganache 
+// use this one so we all can use the same words seed
+// lazy soup bright cigar dinosaur crystal pink together shove amazing avoid grace
+
+
+// why using ganache application is better than using ganache-cli. 
+// 1) it shows you all the accounts along with their balances
+// 2) it shows you all the transactions and what type they are 
+// 3) it gives you a control over the number of accounts and the how many ether is inside them 
+// 4) it can be shared in a local network so we could all access the same network if we are in the same place ( good for final presentaion )
+// 5) it can be good for unit testing and browser testing at the same time 
+// 6) doesn't take any time to push a new transation 

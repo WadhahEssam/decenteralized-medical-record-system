@@ -4,8 +4,9 @@ const assert = require('assert');
 const compiledMedicalRecordsSystem = require('../build/MedicalRecordsSystem.json');
 const compiledMedicalRecord = require('../build/MedicalRecord.json');
 
-const provider = ganache.provider();
-const web3 = new Web3(provider);
+// const provider = ganache.provider();
+// const web3 = new Web3(provider);
+var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 
 let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
