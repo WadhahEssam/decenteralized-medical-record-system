@@ -17,6 +17,7 @@ contract MedicalRecordsSystem {
     address private noAddress = address(0x0000000000000000000000000);
     Hospital[] public hospitals;
     Pharmacy[] public pharmacies;
+    uint256 public medicalRecordsCount = 0;
     
     constructor() public {
         ministryOfHealth = msg.sender;
@@ -25,6 +26,7 @@ contract MedicalRecordsSystem {
     function createMedicalRecord(uint256 nationalID, string memory name, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContantI) public onlyHospitalsAndPharmacies {
         MedicalRecord newMedicalRecord = new MedicalRecord(nationalID, name, dateI, phoneNumberI, genderI, bloodTypeI, emergencyContantI);
         medicalRecords[nationalID] = address(newMedicalRecord);
+        medicalRecordsCount++;
     }
 
     function checkMedicalRecord(uint256 nationalIDI) public view returns (bool) {

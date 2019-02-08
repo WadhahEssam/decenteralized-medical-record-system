@@ -67,4 +67,17 @@ describe('MedicalRecordSystem Contract', async () => {
     assert.equal(await newMedicalRecordsSystemContract.methods.bloodType().call(), 'o+');
     assert.equal(await newMedicalRecordsSystemContract.methods.emergencyContacts(0).call(), '044239448');
   });
+
+  it('counts number of hosiptals, pharmacies, medical records correctly', async() => {
+    await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.addHospital(hospitalTwo, 'king abdullah hospital').send({ from: ministryOfHelath, gas: '1000000' });
+    assert.equal(await medicalRecordsSystemContract.methods.getHospitalsCount().call(), 2);
+
+    await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne, 'al salam pharmacy').send({ from: ministryOfHelath, gas: '1000000' });
+    assert.equal(await medicalRecordsSystemContract.methods.getPharmaciesCount().call(), 1);
+
+    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '1000000' });
+    assert.equal(await medicalRecordsSystemContract.methods.medicalRecordsCount().call(), 2);
+  });
 }); 
