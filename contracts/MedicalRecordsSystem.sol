@@ -54,7 +54,7 @@ contract MedicalRecordsSystem {
     
     function addPharmacy(address pharmacyAddressI, string memory pharmacyName) public onlyMinistryOfHealth {
         pharmacyAddresses[pharmacyAddressI] = true;
-        hospitals.push(Hospital({
+        pharmacies.push(Pharmacy({
             name: pharmacyName,
             networkAddress: pharmacyAddressI
         }));
