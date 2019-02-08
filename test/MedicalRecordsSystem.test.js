@@ -30,18 +30,18 @@ describe('MedicalRecordSystem Contract', async () => {
   });
 
   it('can add hospitals by the ministry of health', async () => {
-    await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call(), true);
   });
 
   it('can add pharmacies by the ministry of health', async () => {
-    await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne).send({ from: ministryOfHelath, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne, 'al salam pharmacy').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(await medicalRecordsSystemContract.methods.pharmacyAddresses(pharmacyOne).call(), true);
   });
 
   it('creates a medical record by hospitals', async () => {
     // add the hospital
-    await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call(), true);
     // create medical record
     await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Wadhah Essam', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
@@ -51,7 +51,7 @@ describe('MedicalRecordSystem Contract', async () => {
 
   it('can return the address of the medical record', async () => {
     // add the hospital
-    await medicalRecordsSystemContract.methods.addHospital(hospitalOne).send({ from: ministryOfHelath, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(true, await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call());
     // create medical record
     await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
