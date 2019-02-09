@@ -5,10 +5,12 @@ contract MedicalRecordsSystem {
     struct Hospital {
         string name;  
         address networkAddress;
+        uint date;
     }
     struct Pharmacy {
         string name;
         address networkAddress;
+        uint date;
     }
     address public ministryOfHealth;
     mapping(uint256 => address) public medicalRecords;
@@ -50,7 +52,8 @@ contract MedicalRecordsSystem {
         hospitalAddresses[hospitalAddressI] = true;
         hospitals.push(Hospital({
             name: hospitalName,
-            networkAddress: hospitalAddressI
+            networkAddress: hospitalAddressI,
+            date: block.timestamp
         }));
     }
     
@@ -58,7 +61,8 @@ contract MedicalRecordsSystem {
         pharmacyAddresses[pharmacyAddressI] = true;
         pharmacies.push(Pharmacy({
             name: pharmacyName,
-            networkAddress: pharmacyAddressI
+            networkAddress: pharmacyAddressI,
+            date: block.timestamp
         }));
     }
     
