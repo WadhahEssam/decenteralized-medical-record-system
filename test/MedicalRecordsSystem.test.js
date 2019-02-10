@@ -21,7 +21,7 @@ beforeEach( async () => {
 
   medicalRecordsSystemContract = await new web3.eth.Contract(JSON.parse(compiledMedicalRecordsSystem.interface))
     .deploy({ data: compiledMedicalRecordsSystem.bytecode })
-    .send({ from: ministryOfHelath, gas: '2000000' });
+    .send({ from: ministryOfHelath, gas: '3000000' });
 });
 
 describe('MedicalRecordSystem Contract', async () => {
@@ -44,7 +44,7 @@ describe('MedicalRecordSystem Contract', async () => {
     await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call(), true);
     // create medical record
-    await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Wadhah Essam', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.createMedicalRecord(435108270, 'Wadhah Essam', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '2000000' });
     let checkMedicalRecord = await medicalRecordsSystemContract.methods.checkMedicalRecord(435108270).call();
     assert.equal(checkMedicalRecord, true);
   });
@@ -54,7 +54,7 @@ describe('MedicalRecordSystem Contract', async () => {
     await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(true, await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call());
     // create medical record
-    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', 9871634389, '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', 9871634389, '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '2000000' });
     let medicalRecordAddress = await medicalRecordsSystemContract.methods.getMedicalRecord(425990389).call();
     let newMedicalRecordsSystemContract = await new web3.eth.Contract(
       JSON.parse(compiledMedicalRecord.interface), 
@@ -77,8 +77,8 @@ describe('MedicalRecordSystem Contract', async () => {
     await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne, 'al salam pharmacy').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(await medicalRecordsSystemContract.methods.getPharmaciesCount().call(), 1);
 
-    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
-    await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '2000000' });
+    await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '2000000' });
     assert.equal(await medicalRecordsSystemContract.methods.medicalRecordsCount().call(), 2);
   });
 }); 
