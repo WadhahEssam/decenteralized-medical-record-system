@@ -25,8 +25,14 @@ contract MedicalRecordsSystem {
         ministryOfHealth = msg.sender;
     }
     
-    function createMedicalRecord(uint256 nationalID, string memory name, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContantI) public onlyHospitalsAndPharmacies {
-        MedicalRecord newMedicalRecord = new MedicalRecord(nationalID, name, dateI, phoneNumberI, genderI, bloodTypeI, emergencyContantI);
+    function createMedicalRecord(uint256 nationalID, string memory name, uint dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContactI) public onlyHospitalsAndPharmacies {
+        string memory hospitalName = 'noName';
+        for (uint i = 0; i < hospitals.length; i++) {
+            if (hospitals[i].networkAddress == msg.sender) {
+                hospitalName = hospitals[i].name;
+            }
+        }
+        MedicalRecord newMedicalRecord = new MedicalRecord(nationalID, name, dateI, phoneNumberI, genderI, bloodTypeI, emergencyContactI, hospitalName);
         medicalRecords[nationalID] = address(newMedicalRecord);
         medicalRecordsCount++;
     }

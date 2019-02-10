@@ -4,9 +4,9 @@ const assert = require('assert');
 const compiledMedicalRecordsSystem = require('../build/MedicalRecordsSystem.json');
 const compiledMedicalRecord = require('../build/MedicalRecord.json');
 
-// const provider = ganache.provider();
-// const web3 = new Web3(provider);
-var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+const provider = ganache.provider();
+const web3 = new Web3(provider);
+// var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 
 let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
@@ -54,18 +54,19 @@ describe('MedicalRecordSystem Contract', async () => {
     await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
     assert.equal(true, await medicalRecordsSystemContract.methods.hospitalAddresses(hospitalOne).call());
     // create medical record
-    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
+    await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', 9871634389, '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
     let medicalRecordAddress = await medicalRecordsSystemContract.methods.getMedicalRecord(425990389).call();
     let newMedicalRecordsSystemContract = await new web3.eth.Contract(
       JSON.parse(compiledMedicalRecord.interface), 
       medicalRecordAddress
     ); 
     assert.equal(await newMedicalRecordsSystemContract.methods.name().call(), 'Mohammed');
-    assert.equal(await newMedicalRecordsSystemContract.methods.date().call(), '9871634389');
+    assert.equal(await newMedicalRecordsSystemContract.methods.birthDate().call(), 9871634389);
     assert.equal(await newMedicalRecordsSystemContract.methods.phoneNumber().call(), '0551292881');
     assert.equal(await newMedicalRecordsSystemContract.methods.gender().call(), 'male');
     assert.equal(await newMedicalRecordsSystemContract.methods.bloodType().call(), 'o+');
     assert.equal(await newMedicalRecordsSystemContract.methods.emergencyContacts(0).call(), '044239448');
+    assert.equal(await newMedicalRecordsSystemContract.methods.hospitalName().call(), 'king khaled hospital');
   });
 
   it('counts number of hosiptals, pharmacies, medical records correctly', async() => {

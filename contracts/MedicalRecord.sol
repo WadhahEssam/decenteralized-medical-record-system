@@ -3,37 +3,44 @@ pragma solidity >=0.4.25;
 contract MedicalRecord {
     string public name;
     uint256 public nationalID;
-    string public date;
+    uint public birthDate; // timestamp format
     string public phoneNumber;
     string public gender;
     string public bloodType;
     string[] public emergencyContacts;
+    string public hospitalName; // which hospital the record was submitted by
+    uint public submissionDate; 
+    
     // Diagnosis[] public diagnosisList;
     // DrugPrescription[] public drugPrescription;
     // Surgery[] public surgeries;
     // LaboratoryTest[] public laboratoryTests;
     // BloodDonation[] public bloodDonations;
     
-    constructor(uint256 nationalIDI, string memory nameI, string memory dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContactI) public {
+    constructor(uint256 nationalIDI, string memory nameI, uint birthDateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContactI, string memory hospitalNameI) public {
         name = nameI;
         nationalID = nationalIDI;
-        date = dateI;
+        birthDate = birthDateI;
         phoneNumber = phoneNumberI;
         gender = genderI;
         bloodType = bloodTypeI;
         emergencyContacts.push(emergencyContactI); 
-    }
-
-    function setPhoneNumber(string memory _phoneNumber) public{
-        phoneNumber = _phoneNumber;
-    }
-
-    function addEmergencyContact(string phoneNumber) public {
-        // TODO: addEmergencyContact
+        hospitalName = hospitalNameI;
+        submissionDate = block.timestamp;
     }
 }
 
+    
 
+
+    
+    
+
+
+    
+
+
+    
 //  note : address is saved automatically for any contract 
 //     constructor() public {
 //         medicalRecordAddress = msg.sender;
