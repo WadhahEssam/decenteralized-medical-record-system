@@ -26,7 +26,7 @@ contract MedicalRecordsSystem {
     }
     
     function createMedicalRecord(uint256 nationalID, string memory name, uint dateI, string memory phoneNumberI, string memory genderI, string memory bloodTypeI, string memory emergencyContactI) public onlyHospitalsAndPharmacies {
-        string memory hospitalName = 'noName';
+        string memory hospitalName = "noName";
         for (uint i = 0; i < hospitals.length; i++) {
             if (hospitals[i].networkAddress == msg.sender) {
                 hospitalName = hospitals[i].name;
