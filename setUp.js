@@ -60,22 +60,22 @@ async function deploy()  {
   // creating the system contract
   medicalRecordsSystemContract = await new web3.eth.Contract(JSON.parse(compiledMedicalRecordsSystem.interface))
     .deploy({ data: compiledMedicalRecordsSystem.bytecode })
-    .send({ from: ministryOfHelath, gas: '2000000' });
+    .send({ from: ministryOfHelath, gas: '3000000' });
 
   // adding hospitals 
-  await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'King Khaled Hospital').send({ from: ministryOfHelath, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.addHospital(hospitalTwo, 'King Abdullah Hospital').send({ from: ministryOfHelath, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.addHospital(hospitalThree, 'Al Salam Hospital').send({ from: ministryOfHelath, gas: '1000000' });
+  await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'King Khaled Hospital').send({ from: ministryOfHelath, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.addHospital(hospitalTwo, 'King Abdullah Hospital').send({ from: ministryOfHelath, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.addHospital(hospitalThree, 'Al Salam Hospital').send({ from: ministryOfHelath, gas: '2000000' });
 
   // adding pharmacies
-  await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne, 'Al Salam Pharmach').send({ from: ministryOfHelath, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.addPharmacy(pharmacyTwo, 'Al Wali Pharmacy').send({ from: ministryOfHelath, gas: '1000000' });
+  await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne, 'Al Salam Pharmach').send({ from: ministryOfHelath, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.addPharmacy(pharmacyTwo, 'Al Wali Pharmacy').send({ from: ministryOfHelath, gas: '2000000' });
 
   // adding medical records
-  await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(466374888, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(477589688, 'Ali', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalThree, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(433267373, 'Saleh', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '1000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(466374888, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(477589688, 'Ali', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalThree, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(433267373, 'Saleh', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '2000000' });
 
   console.log(medicalRecordsSystemContract.options.address);
   fs.outputJsonSync(
