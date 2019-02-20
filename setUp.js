@@ -6,13 +6,17 @@ const solc = require('solc');
 const path = require('path');
 const fs = require('fs-extra'); 
 
-const buildPath = path.resolve(__dirname, 'build'); 
 
+// -- Compiling --
+// Delete the entire "build" directory
+const buildPath = path.resolve(__dirname, 'build'); 
 fs.removeSync(buildPath);
 
+// Read 'MedicalRecordsSystem.sol' from the 'contracts' directory
 const medicalRecordsSystemPath = path.resolve(__dirname, 'contracts', 'MedicalRecordsSystem.sol');
 const medicalRecordSystemSource = fs.readFileSync(medicalRecordsSystemPath, 'utf8');
 
+// Read 'MedicalRecord.sol' from the 'contracts' directory
 const medicalRecordPath = path.resolve(__dirname, 'contracts', 'MedicalRecord.sol');
 const medicalRecordSource = fs.readFileSync(medicalRecordPath, 'utf8');
 
@@ -23,18 +27,20 @@ const input = {
   }
 };
 
+// Compile both the MedicalRecord and MedicalRecordsSystem with 'solc'
 const output = solc.compile(input, 1).contracts; 
 
-fs.mkdirsSync(buildPath);
+// Recreate the 'build' directory and write the output to it
+fs.ensureDirSync(buildPath);
 
 for (let contract in output) {
   fs.outputJsonSync(
     path.resolve(buildPath, contract.substring(contract.indexOf(':')+1,contract.length) + '.json'),
-    output[contract], 
+    output[contract]
   );
 }
 
-// deploying
+// -- Deploying --
 const Web3 = require('web3');
 const ganache = require('ganache-cli');
 const assert = require('assert');
