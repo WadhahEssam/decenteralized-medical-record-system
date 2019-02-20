@@ -48,6 +48,8 @@ const compiledMedicalRecordsSystem = require('./build/MedicalRecordsSystem.json'
 const compiledMedicalRecord = require('./build/MedicalRecord.json');
 
 var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+// var web3 = new Web3(new Web3.providers.HttpProvider('HTTP://10.131.192.242:7545'));
+
 deploy();
 
 async function deploy()  {
