@@ -110,18 +110,6 @@ contract MedicalRecord {
 
     // TODO: function addDrugPrescribtion(string _doctorName, Drug[] _drugList)
 
-    function addLaboratoryTest(string _laboratoryWorkerName, string _testType, string _laboratoryTestDescription) public {
-        laboratoryTests.push(LaboratoryTest({
-            laboratoryWorkerName: _laboratoryWorkerName,
-            date: block.timestamp,
-            testType: _testType,
-            laboratoryTestDescription: _laboratoryTestDescription,
-            testHash: "0x0",
-            isMedicalError: false,
-            isCorrectionFor: noAddress
-        }));
-    }
-
     function addSurgery(
         string memory _mainDoctor,
         bytes32[] memory _assistantDoctors,
@@ -147,6 +135,22 @@ contract MedicalRecord {
             fileHash: _fileHash
         }));
     }
+
+    function addLaboratoryTest(string _laboratoryWorkerName, string _testType, string _laboratoryTestDescription) public {
+        laboratoryTests.push(LaboratoryTest({
+            laboratoryWorkerName: _laboratoryWorkerName,
+            date: block.timestamp,
+            testType: _testType,
+            laboratoryTestDescription: _laboratoryTestDescription,
+            testHash: "0x0",
+            isMedicalError: false,
+            isCorrectionFor: noAddress
+        }));
+    }
+
+    // TODO: function addBloodDonation(string _doctorName, string _donationType, double _ammount)
+
+    // TODO: function markTransactionAsMedicalError(address _transactionAddress)
 }
 
 
