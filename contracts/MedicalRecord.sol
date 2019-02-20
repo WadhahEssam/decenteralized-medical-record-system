@@ -55,8 +55,6 @@ contract MedicalRecord {
     }
 
     struct LaboratoryTest {
-        address transactionAddress;
-        address hospitalAddress;
         string laboratoryWorkerName;
         uint date;
         string testType;
@@ -105,6 +103,20 @@ contract MedicalRecord {
             doctorName: _doctorName,
             date: block.timestamp,
             diognosisDescription: _diognosisDescription,
+            isMedicalError: false,
+            isCorrectionFor: noAddress
+        }));
+    }
+
+    // TODO: function addDrugPrescribtion(string _doctorName, Drug[] _drugList)
+
+    function addLaboratoryTest(string _laboratoryWorkerName, string _testType, string _laboratoryTestDescription) public {
+        laboratoryTests.push(LaboratoryTest({
+            laboratoryWorkerName: _laboratoryWorkerName,
+            date: block.timestamp,
+            testType: _testType,
+            laboratoryTestDescription: _laboratoryTestDescription,
+            testHash: "0x0",
             isMedicalError: false,
             isCorrectionFor: noAddress
         }));
