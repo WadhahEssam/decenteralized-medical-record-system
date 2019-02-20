@@ -15,7 +15,7 @@ contract MedicalRecord {
     address public medicalRecordAddress; // The address in the blockchain
     uint256 public nationalID;
     string public name;
-    uint public birthOfDate; // timestamp format
+    uint public dateOfBirth; // timestamp format
     string public phoneNumber;
     string public gender;
     string public bloodType;
@@ -84,7 +84,7 @@ contract MedicalRecord {
         string memory bloodTypeI, string memory emergencyContactI, string memory hospitalNameI) public {
         name = nameI;
         nationalID = nationalIDI;
-        birthOfDate = birthDateI;
+        dateOfBirth = birthDateI;
         phoneNumber = phoneNumberI;
         gender = genderI;
         bloodType = bloodTypeI;
@@ -111,15 +111,15 @@ contract MedicalRecord {
     // TODO: function addDrugPrescribtion(string _doctorName, Drug[] _drugList)
 
     function addSurgery(
-        string memory _mainDoctor,
-        bytes32[] memory _assistantDoctors,
-        uint _date,
-        string memory _surgeryType,
-        string memory _surgeryInformation, 
-        uint _duration,
         string _hospitalName,
         string _surgeryName,
-        string memory _fileHash) public {
+        string memory _surgeryInformation,
+        string memory _mainDoctor,
+        uint _date,
+        uint _duration,
+        string memory _fileHash,
+        bytes32[] memory _assistantDoctors,
+        string memory _surgeryType) public {
 
         surgeries.push(Surgery({
             mainDoctor: _mainDoctor,

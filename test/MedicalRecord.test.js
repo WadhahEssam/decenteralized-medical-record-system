@@ -39,7 +39,7 @@ describe('MedicalRecord Contract', async () => {
 
   it('saves the basic information correctly', async () => {
     assert.equal(await medicalRecordContract.methods.name().call(), 'Mohammed');
-    assert.equal(await medicalRecordContract.methods.birthDate().call(), 9871634389);
+    assert.equal(await medicalRecordContract.methods.dateOfBirth().call(), 9871634389);
     assert.equal(await medicalRecordContract.methods.phoneNumber().call(), '0551292881');
     assert.equal(await medicalRecordContract.methods.gender().call(), 'male');
     assert.equal(await medicalRecordContract.methods.bloodType().call(), 'o+');
@@ -52,8 +52,8 @@ describe('MedicalRecord Contract', async () => {
     let surgery = await medicalRecordContract.methods.surgeries(0).call();
     assert.equal(surgery.hospitalName, 'King Khaled Hospital');
     assert.equal(surgery.surgeryName, 'Open Heart Surgery');
-    assert.equal(surgery.surgeryDescription, 'Patient has done an open heart surgery due to a heart disfunctioning');
-    assert.equal(surgery.doctor, 'Dr. Khaled Al Khateeb');
+    assert.equal(surgery.surgeryInformation, 'Patient has done an open heart surgery due to a heart disfunctioning');
+    assert.equal(surgery.mainDoctor, 'Dr. Khaled Al Khateeb');
     assert.equal(surgery.date, 9834754);
     assert.equal(surgery.duration, 8902);
     assert.equal(surgery.fileHash, 'x298id02zksoi2083kdx');
