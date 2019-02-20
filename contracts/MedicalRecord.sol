@@ -32,12 +32,9 @@ contract MedicalRecord {
     // -- Models --
     struct Surgery {
         string mainDoctor;
-        // currently solidity does not support an array of strings as an argument type. So I had to store it as bytes32.
-        // we can use web3's web3.utils.asciiToHex(arg) to convert the string to byte32 and store it in the assistantDoctors array.
-        bytes32[] assistantDoctors;
         uint date;
         string surgeryType;
-        string surgeryInformation;
+        // string surgeryInformation;
         uint duration; // in minutes
         bool isMedicalError;
         address isCorrectionFor; // Holds the address of another surgery to mark this one as a correction for it.
@@ -113,20 +110,17 @@ contract MedicalRecord {
     function addSurgery(
         string _hospitalName,
         string _surgeryName,
-        string memory _surgeryInformation,
         string memory _mainDoctor,
         uint _date,
         uint _duration,
         string memory _fileHash,
-        bytes32[] memory _assistantDoctors,
         string memory _surgeryType) public {
 
         surgeries.push(Surgery({
             mainDoctor: _mainDoctor,
-            assistantDoctors: _assistantDoctors,
             date: _date,
             surgeryType: _surgeryType,
-            surgeryInformation: _surgeryInformation,
+            //surgeryInformation: _surgeryInformation,
             duration: _duration,
             isMedicalError: false,
             isCorrectionFor: noAddress,

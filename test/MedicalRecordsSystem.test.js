@@ -61,7 +61,7 @@ describe('MedicalRecordSystem Contract', async () => {
       medicalRecordAddress
     ); 
     assert.equal(await newMedicalRecordsSystemContract.methods.name().call(), 'Mohammed');
-    assert.equal(await newMedicalRecordsSystemContract.methods.birthDate().call(), 9871634389);
+    assert.equal(await newMedicalRecordsSystemContract.methods.dateOfBirth().call(), 9871634389);
     assert.equal(await newMedicalRecordsSystemContract.methods.phoneNumber().call(), '0551292881');
     assert.equal(await newMedicalRecordsSystemContract.methods.gender().call(), 'male');
     assert.equal(await newMedicalRecordsSystemContract.methods.bloodType().call(), 'o+');
