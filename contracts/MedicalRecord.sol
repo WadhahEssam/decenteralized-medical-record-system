@@ -96,8 +96,12 @@ contract MedicalRecord {
         hospitalName = hospitalNameI;
         submissionDate = block.timestamp;
     }
-    
-    // -- Functions --
+
+    // -- Setters --
+    function addEmergencyContact(string _phoneNumber) public {
+        emergencyContacts.push(_phoneNumber);
+    }
+
     function addSurgery(
         string memory _mainDoctor,
         bytes32[] memory _assistantDoctors,
