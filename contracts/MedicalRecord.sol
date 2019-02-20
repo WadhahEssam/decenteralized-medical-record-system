@@ -47,8 +47,6 @@ contract MedicalRecord {
     }
 
     struct Diognosis {
-        address transactionAddress;
-        address hospitalAddress;
         string doctorName;
         uint date;
         string diognosisDescription;
@@ -100,6 +98,16 @@ contract MedicalRecord {
     // -- Setters --
     function addEmergencyContact(string _phoneNumber) public {
         emergencyContacts.push(_phoneNumber);
+    }
+
+    function addDiognosis(string _doctorName, string _diognosisDescription) public {
+        diognoses.push(Diognosis({
+            doctorName: _doctorName,
+            date: block.timestamp,
+            diognosisDescription: _diognosisDescription,
+            isMedicalError: false,
+            isCorrectionFor: noAddress
+        }));
     }
 
     function addSurgery(
