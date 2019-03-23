@@ -171,6 +171,7 @@ contract MedicalRecord {
 
     // TODO: function addBloodDonation(string _doctorName, string _donationType, double _ammount)
 
+    // TODO: test this function and complete it if it's working as expected
     function markTransactionAsMedicalError(uint _type, uint _id) public {
         if (_type == 1) { // Surgery
             for ( uint i = 0 ; i < surgeries.length ; i++) {
