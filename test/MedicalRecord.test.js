@@ -11,7 +11,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
 
-beforeEach( async () => {
+beforeEach(async () => {
   accounts = await web3.eth.getAccounts();
   ministryOfHelath = accounts[0];
   hospitalOne = accounts[1];
@@ -27,9 +27,9 @@ beforeEach( async () => {
   await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', 9871634389, '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '200000000' });
   let medicalRecordAddress = await medicalRecordsSystemContract.methods.getMedicalRecord(425990389).call();
   medicalRecordContract = await new web3.eth.Contract(
-    JSON.parse(compiledMedicalRecord.interface), 
+    JSON.parse(compiledMedicalRecord.interface),
     medicalRecordAddress
-  ); 
+  );
 });
 
 describe('MedicalRecord Contract', async () => {
@@ -51,13 +51,30 @@ describe('MedicalRecord Contract', async () => {
     await medicalRecordContract.methods.addSurgery('King Khaled Hospital', 'Open Heart Surgery', 'Dr. Khaled Al Khateeb', 9834754, 8902, 'x298id02zksoi2083kdx', 'cut his stomic').send({ from: hospitalOne, gas: '200000000' });
     let surgery = await medicalRecordContract.methods.surgeries(0).call();
     assert.equal(surgery.hospitalName, 'King Khaled Hospital');
-    assert.equal(surgery.surgeryName, 'Open Heart Surgery');
+    assert.equal(surgery.surgeryName, 'Open Heart Surgery'); 
     assert.equal(surgery.mainDoctor, 'Dr. Khaled Al Khateeb');
     assert.equal(surgery.date, 9834754);
     assert.equal(surgery.duration, 8902);
     assert.equal(surgery.fileHash, 'x298id02zksoi2083kdx');
-    assert.equal(surgery.isMedicalError, false);
-    assert.equal(surgery.isCorrectionFor, '0x0000000000000000000000000000000000000000');
+    assert.equal(surgery.isCorrectionFor, '');
   });
+
+  it('marks transaction as medical error', async () => {
+    await medicalRecordContract.methods.addSurgery('King Khaled Hospital', 'Open Heart Surgery', 'Dr. Khaled Al Khateeb', 9834754, 8902, 'x298id02zksoi2083kdx', 'cut his stomic').send({ from: hospitalOne, gas: '200000000' });
+    let surgery = await medicalRecordContract.methods.surgeries(0).call();
+    assert.equal(surgery.hospitalName, 'King Khaled Hospital');
+    assert.equal(surgery.surgeryName, 'Open Heart Surgery'); 
+    assert.equal(surgery.mainDoctor, 'Dr. Khaled Al Khateeb');
+    assert.equal(surgery.date, 9834754);
+    assert.equal(surgery.duration, 8902);
+    assert.equal(surgery.fileHash, 'x298id02zksoi2083kdx');
+    assert.equal(surgery.isCorrectionFor, '');
+
+    // marking a surgery transaction as a medical error
+    await medicalRecordContract.methods.markTransactionAsMedicalError(1, 1).send({ from: hospitalOne, gas: '200000000' });
+    surgery = await medicalRecordContract.methods.surgeries(0).call();
+    assert.equal(surgery.isCorrectionFor, 'true');
+  });
+
 
 }); 

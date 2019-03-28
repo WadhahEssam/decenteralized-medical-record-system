@@ -174,11 +174,7 @@ contract MedicalRecord {
     // TODO: test this function and complete it if it's working as expected
     function markTransactionAsMedicalError(uint _type, uint _id) public {
         if (_type == 1) { // Surgery
-            for ( uint i = 0 ; i < surgeries.length ; i++) {
-                if (surgeries[i].id == _id) {
-                    surgeries[i].isCorrectionFor = "true";
-                }
-            }
+            surgeries[_id-1].isCorrectionFor = "true";
         } else if (_type == 2) { // Diognosis
         
         } else if (_type == 3) { // DrugPrescribtion
