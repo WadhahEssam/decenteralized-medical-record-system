@@ -4,9 +4,9 @@ const assert = require('assert');
 const compiledMedicalRecordsSystem = require('../build/MedicalRecordsSystem.json');
 const compiledMedicalRecord = require('../build/MedicalRecord.json');
 
-const provider = ganache.provider();
-const web3 = new Web3(provider);
-// var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+// const provider = ganache.provider();
+// const web3 = new Web3(provider);
+var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 
 let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
@@ -21,10 +21,10 @@ beforeEach( async () => {
 
   medicalRecordsSystemContract = await new web3.eth.Contract(JSON.parse(compiledMedicalRecordsSystem.interface))
     .deploy({ data: compiledMedicalRecordsSystem.bytecode })
-    .send({ from: ministryOfHelath, gas: '3000000' });
+    .send({ from: ministryOfHelath, gas: '30000000' });
 
-  await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '1000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', 9871634389, '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '2000000' });
+  await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'king khaled hospital').send({ from: ministryOfHelath, gas: '200000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(425990389, 'Mohammed', 9871634389, '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '200000000' });
   let medicalRecordAddress = await medicalRecordsSystemContract.methods.getMedicalRecord(425990389).call();
   medicalRecordContract = await new web3.eth.Contract(
     JSON.parse(compiledMedicalRecord.interface), 
@@ -48,7 +48,7 @@ describe('MedicalRecord Contract', async () => {
   });
 
   it('adds a new surgery and stores its data correctly', async () => {
-    await medicalRecordContract.methods.addSurgery('King Khaled Hospital', 'Open Heart Surgery', 'Dr. Khaled Al Khateeb', 9834754, 8902, 'x298id02zksoi2083kdx', 'cut his stomic').send({ from: hospitalOne, gas: '2000000' });
+    await medicalRecordContract.methods.addSurgery('King Khaled Hospital', 'Open Heart Surgery', 'Dr. Khaled Al Khateeb', 9834754, 8902, 'x298id02zksoi2083kdx', 'cut his stomic').send({ from: hospitalOne, gas: '200000000' });
     let surgery = await medicalRecordContract.methods.surgeries(0).call();
     assert.equal(surgery.hospitalName, 'King Khaled Hospital');
     assert.equal(surgery.surgeryName, 'Open Heart Surgery');

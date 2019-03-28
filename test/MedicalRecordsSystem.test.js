@@ -4,9 +4,9 @@ const assert = require('assert');
 const compiledMedicalRecordsSystem = require('../build/MedicalRecordsSystem.json');
 const compiledMedicalRecord = require('../build/MedicalRecord.json');
 
-const provider = ganache.provider();
-const web3 = new Web3(provider);
-// var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+// const provider = ganache.provider();
+// const web3 = new Web3(provider);
+var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 
 let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
@@ -21,7 +21,7 @@ beforeEach( async () => {
 
   medicalRecordsSystemContract = await new web3.eth.Contract(JSON.parse(compiledMedicalRecordsSystem.interface))
     .deploy({ data: compiledMedicalRecordsSystem.bytecode })
-    .send({ from: ministryOfHelath, gas: '3000000' });
+    .send({ from: ministryOfHelath, gas: '300000000' });
 });
 
 describe('MedicalRecordSystem Contract', async () => {
