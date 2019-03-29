@@ -59,13 +59,13 @@ contract MedicalRecord {
     }
 
     struct LaboratoryTest {
+        uint id;
         string laboratoryWorkerName;
         uint date;
         string testType;
         string laboratoryTestDescription;
         string testHash; // unique set of characters which helps in validating the test.
-        bool isMedicalError;
-        address isCorrectionFor; // Holds the address of another test to mark this one as a correction for it.
+        string isCorrectionFor; // Holds the address of another test to mark this one as a correction for it.
     }
 
     struct DrugPrescribtion {
@@ -140,32 +140,38 @@ contract MedicalRecord {
         uint _date,
         uint _duration,
         string memory _fileHash,
-        string _surgeryInformation) public {
-            
+        string _surgeryInformation,
+        string _isCorrectionFor) public {
         globalCounter++;
-
         surgeries.push(Surgery({
-            id: surgeriesCount + 1,
+            id: globalCounter,
             mainDoctor: _mainDoctor,
             date: _date,
             surgeryInformation: _surgeryInformation,
             duration: _duration,
-            isCorrectionFor: "",
+            isCorrectionFor: _isCorrectionFor,
             hospitalName: _hospitalName,
             surgeryName: _surgeryName,
             fileHash: _fileHash
         }));
     }
 
-    function addLaboratoryTest(string _laboratoryWorkerName, string _testType, string _laboratoryTestDescription) public {
+    function addLaboratoryTest(
+        string _laboratoryWorkerName, 
+        string _testType, 
+        string _laboratoryTestDescription,
+        uint _date,
+        string memory _fileHash,
+        string _isCorrectionFor) public {
+        globalCounter++;
         laboratoryTests.push(LaboratoryTest({
+            id: globalCounter,
             laboratoryWorkerName: _laboratoryWorkerName,
-            date: block.timestamp,
+            date: _date,
             testType: _testType,
             laboratoryTestDescription: _laboratoryTestDescription,
-            testHash: "0x0",
-            isMedicalError: false,
-            isCorrectionFor: noAddress
+            testHash: _fileHash,
+            isCorrectionFor: _isCorrectionFor
         }));
     }
 
@@ -174,9 +180,17 @@ contract MedicalRecord {
     // TODO: test this function and complete it if it's working as expected
     function markTransactionAsMedicalError(uint _type, uint _id) public {
         if (_type == 1) { // Surgery
-            surgeries[_id-1].isCorrectionFor = "true";
+            for ( uint i = 0 ; i < surgeries.length ; i++) {
+                if (surgeries[i].id == _id) {
+                    surgeries[i].isCorrectionFor = "true";
+                }
+            }
         } else if (_type == 2) { // Diognosis
-        
+            for ( uint j = 0 ; j < laboratoryTests.length ; j++) {
+                if (laboratoryTests[j].id == _id) {
+                    laboratoryTests[j].isCorrectionFor = "true";
+                }
+            }
         } else if (_type == 3) { // DrugPrescribtion
             
         } else if (_type == 4) { // LaboratoryTest
