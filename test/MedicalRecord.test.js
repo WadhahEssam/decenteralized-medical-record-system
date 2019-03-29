@@ -78,6 +78,15 @@ describe('MedicalRecord Contract', async () => {
     assert.equal(diagnosis.fileHash, 'x298id02zksoi2083kdx');
     assert.equal(diagnosis.isCorrectionFor, '');
   });
+  
+  it('adds a new blood donation', async () => {
+    await medicalRecordContract.methods.addBloodDonation('Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
+    let bloodDonation = await medicalRecordContract.methods.bloodDonations(0).call();
+    assert.equal(bloodDonation.doctorName, 'Dr. Khaled Al Khateeb');
+    assert.equal(bloodDonation.donationType, 'Red cells'); 
+    assert.equal(bloodDonation.fileHash, 'x298id02zksoi2083kdx');
+    assert.equal(bloodDonation.isCorrectionFor, '');
+  });
 
   it('marks transaction as medical error', async () => {
     // adding several accounts
@@ -88,15 +97,15 @@ describe('MedicalRecord Contract', async () => {
     await medicalRecordContract.methods.addLaboratoryTest('Mohanned Yahya', 'Blood Test', 'This is a description for the blood test', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 5
     await medicalRecordContract.methods.addDiagnosis('Dr. Khaled Al Khateeb', 'Breast Cancer', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 6
     await medicalRecordContract.methods.addDiagnosis('Dr. Khaled Al Khateeb', 'Breast Cancer', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 7
+    await medicalRecordContract.methods.addBloodDonation('Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 8
+    await medicalRecordContract.methods.addBloodDonation('Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 9
 
     // marking a surgery transaction as a medical error
     await medicalRecordContract.methods.markTransactionAsMedicalError(1, 1).send({ from: hospitalOne, gas: '200000000' });
     await medicalRecordContract.methods.markTransactionAsMedicalError(1, 2).send({ from: hospitalOne, gas: '200000000' });
     let surgery = await medicalRecordContract.methods.surgeries(0).call();
-    let surgery2 = await medicalRecordContract.methods.surgeries(1).call();
     let surgery3 = await medicalRecordContract.methods.surgeries(2).call();
     assert.equal(surgery.isCorrectionFor, 'true');
-    assert.equal(surgery2.isCorrectionFor, 'true');
     assert.equal(surgery3.isCorrectionFor, '');
 
     await medicalRecordContract.methods.markTransactionAsMedicalError(2, 5).send({ from: hospitalOne, gas: '200000000' });
@@ -105,11 +114,13 @@ describe('MedicalRecord Contract', async () => {
     assert.equal(labTest.isCorrectionFor, '');
     assert.equal(labTest2.isCorrectionFor, 'true');
 
-    await medicalRecordContract.methods.markTransactionAsMedicalError(3, 7).send({ from: hospitalOne, gas: '200000000' });
+    await medicalRecordContract.methods.markTransactionAsMedicalError(3, 6).send({ from: hospitalOne, gas: '200000000' });
     let diagnosis = await medicalRecordContract.methods.diagnosises(0).call();
-    let diagnosis2 = await medicalRecordContract.methods.diagnosises(1).call();
-    assert.equal(diagnosis.isCorrectionFor, '');
-    assert.equal(diagnosis2.isCorrectionFor, 'true');
+    assert.equal(diagnosis.isCorrectionFor, 'true');
+
+    await medicalRecordContract.methods.markTransactionAsMedicalError(4, 8).send({ from: hospitalOne, gas: '200000000' });
+    let bloodDonation = await medicalRecordContract.methods.bloodDonations(0).call();
+    assert.equal(bloodDonation.isCorrectionFor, 'true');
   });
 
 }); 

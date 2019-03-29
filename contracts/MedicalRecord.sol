@@ -86,12 +86,13 @@ contract MedicalRecord {
     }
 
     struct BloodDonation {
-        string doctorNAme;
-        uint date;
+        uint id;
+        string doctorName;
         string donationType;
-        uint ammount;
-        bool isMedicalError;
-        address isCorrectionFor;
+        uint date;
+        uint amount;
+        string fileHash;
+        string isCorrectionFor;
     }
 
     // -- Constructor --
@@ -113,6 +114,24 @@ contract MedicalRecord {
         emergencyContacts.push(_phoneNumber);
     }
 
+    function addBloodDonation(
+        string _doctorName, 
+        string _donationType,
+        uint _amount,
+        string memory _fileHash,
+        string _isCorrectionFor) public {
+        globalCounter++;
+        bloodDonations.push(BloodDonation({
+            id: globalCounter,
+            doctorName: _doctorName,
+            donationType: _donationType,
+            date: block.timestamp,
+            amount: _amount,
+            fileHash: _fileHash,
+            isCorrectionFor: _isCorrectionFor
+        }));
+    }
+
     function addDiagnosis(
         string _doctorName, 
         string _diognosisDescription, 
@@ -122,10 +141,10 @@ contract MedicalRecord {
         diagnosises.push(Diognosis({
             id: globalCounter,
             doctorName: _doctorName,
-            date: block.timestamp,
             diognosisDescription: _diognosisDescription,
-            isCorrectionFor: _isCorrectionFor,
-            fileHash: _fileHash
+            date: block.timestamp,
+            fileHash: _fileHash,
+            isCorrectionFor: _isCorrectionFor
         }));
     }
 
@@ -202,9 +221,13 @@ contract MedicalRecord {
                     diagnosises[n].isCorrectionFor = "true";
                 }
             }
-        } else if (_type == 4) { // DrugPrescribtion
-            
-        } else if (_type == 5){ //BloodDonation
+        } else if (_type == 4) { // BloodDonation
+            for ( uint m = 0 ; m < bloodDonations.length ; m++) {
+                if (bloodDonations[m].id == _id) {
+                    bloodDonations[m].isCorrectionFor = "true";
+                }
+            }
+        } else if (_type == 5){ // DrugPrescribtion
             
         }
     }
