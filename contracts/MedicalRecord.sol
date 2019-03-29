@@ -22,8 +22,8 @@ contract MedicalRecord {
     string public bloodType;
     string[] public emergencyContacts;
     uint public emergencyContactsCount;
-    Diognosis[] public diognoses; // Holds the diognoses assosiated with this medical record
-    uint public diognosesCount;
+    Diognosis[] public diagnosises; // Holds the diagnosises assosiated with this medical record
+    uint public diagnosisesCount;
     DrugPrescribtion[] public drugPrescribtions;
     uint public drugPrescribtionsCount;
     Surgery[] public surgeries; // Holds the surgeries assosiated with this medical record
@@ -51,11 +51,12 @@ contract MedicalRecord {
     }
 
     struct Diognosis {
+        uint id;
         string doctorName;
-        uint date;
         string diognosisDescription;
-        bool isMedicalError;
-        address isCorrectionFor; // Holds the address of another diognosis to mark this one as a correction for it.
+        uint date;
+        string isCorrectionFor; // Holds the address of another diognosis to mark this one as a correction for it.
+        string fileHash;
     }
 
     struct LaboratoryTest {
@@ -112,13 +113,19 @@ contract MedicalRecord {
         emergencyContacts.push(_phoneNumber);
     }
 
-    function addDiognosis(string _doctorName, string _diognosisDescription) public {
-        diognoses.push(Diognosis({
+    function addDiagnosis(
+        string _doctorName, 
+        string _diognosisDescription, 
+        string _fileHash,
+        string _isCorrectionFor) public {
+        globalCounter++;
+        diagnosises.push(Diognosis({
+            id: globalCounter,
             doctorName: _doctorName,
             date: block.timestamp,
             diognosisDescription: _diognosisDescription,
-            isMedicalError: false,
-            isCorrectionFor: noAddress
+            isCorrectionFor: _isCorrectionFor,
+            fileHash: _fileHash
         }));
     }
 
@@ -183,17 +190,21 @@ contract MedicalRecord {
                     surgeries[i].isCorrectionFor = "true";
                 }
             }
-        } else if (_type == 2) { // Diognosis
+        } else if (_type == 2) { // LaboratoryTest
             for ( uint j = 0 ; j < laboratoryTests.length ; j++) {
                 if (laboratoryTests[j].id == _id) {
                     laboratoryTests[j].isCorrectionFor = "true";
                 }
             }
-        } else if (_type == 3) { // DrugPrescribtion
+        } else if (_type == 3) { // Diognosis
+            for ( uint n = 0 ; n < diagnosises.length ; n++) {
+                if (diagnosises[n].id == _id) {
+                    diagnosises[n].isCorrectionFor = "true";
+                }
+            }
+        } else if (_type == 4) { // DrugPrescribtion
             
-        } else if (_type == 4) { // LaboratoryTest
-            
-        } else { //BloodDonation
+        } else if (_type == 5){ //BloodDonation
             
         }
     }
