@@ -203,7 +203,13 @@ contract MedicalRecord {
         }));
     }
 
-    // TODO: function addBloodDonation(string _doctorName, string _donationType, double _ammount)
+    function markDrugAsDispensed(uint _id, string _editedDrugList) public {
+        for ( uint y = 0 ; y < drugPrescribtions.length ; y++) {
+            if (drugPrescribtions[y].id == _id) {
+                drugPrescribtions[y].drugList = _editedDrugList;
+            }
+        }          
+    }
 
     // TODO: test this function and complete it if it's working as expected
     function markTransactionAsMedicalError(uint _type, uint _id) public {
