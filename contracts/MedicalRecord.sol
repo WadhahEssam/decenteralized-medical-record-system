@@ -137,7 +137,6 @@ contract MedicalRecord {
         string _hospitalName,
         string _surgeryName,
         string memory _mainDoctor,
-        uint _date,
         uint _duration,
         string memory _fileHash,
         string _surgeryInformation,
@@ -146,7 +145,7 @@ contract MedicalRecord {
         surgeries.push(Surgery({
             id: globalCounter,
             mainDoctor: _mainDoctor,
-            date: _date,
+            date: block.timestamp,
             surgeryInformation: _surgeryInformation,
             duration: _duration,
             isCorrectionFor: _isCorrectionFor,
@@ -160,14 +159,13 @@ contract MedicalRecord {
         string _laboratoryWorkerName, 
         string _testType, 
         string _laboratoryTestDescription,
-        uint _date,
         string memory _fileHash,
         string _isCorrectionFor) public {
         globalCounter++;
         laboratoryTests.push(LaboratoryTest({
             id: globalCounter,
             laboratoryWorkerName: _laboratoryWorkerName,
-            date: _date,
+            date: block.timestamp,
             testType: _testType,
             laboratoryTestDescription: _laboratoryTestDescription,
             testHash: _fileHash,
