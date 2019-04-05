@@ -81,9 +81,9 @@ async function deploy()  {
 
   // adding medical records
   await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '20000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(466374888, 'Mohammed', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '20000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(477589688, 'Ali', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalThree, gas: '20000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(433267373, 'Saleh', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '20000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(466374888, 'Mohammed', '9871634388', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '20000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(477589688, 'Ali', '9871634387', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalThree, gas: '20000000' });
+  await medicalRecordsSystemContract.methods.createMedicalRecord(433267373, 'Saleh', '9871634386', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '20000000' });
 
   console.log(medicalRecordsSystemContract.options.address);
   fs.outputJsonSync(

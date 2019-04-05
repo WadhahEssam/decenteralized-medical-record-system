@@ -121,6 +121,7 @@ contract MedicalRecord {
         string memory _fileHash,
         string _isCorrectionFor) public {
         globalCounter++;
+        bloodDonationsCount++;
         bloodDonations.push(BloodDonation({
             id: globalCounter,
             doctorName: _doctorName,
@@ -138,6 +139,7 @@ contract MedicalRecord {
         string _fileHash,
         string _isCorrectionFor) public {
         globalCounter++;
+        diagnosisesCount++;
         diagnosises.push(Diognosis({
             id: globalCounter,
             doctorName: _doctorName,
@@ -153,6 +155,7 @@ contract MedicalRecord {
         string _drugList,
         string _isCorrectionFor) public {
         globalCounter++;
+        drugPrescribtionsCount++;
         drugPrescribtions.push(DrugPrescribtion({
             id: globalCounter++,
             doctorName: _doctorName,
@@ -172,6 +175,7 @@ contract MedicalRecord {
         string _surgeryInformation,
         string _isCorrectionFor) public {
         globalCounter++;
+        surgeriesCount++;
         surgeries.push(Surgery({
             id: globalCounter,
             mainDoctor: _mainDoctor,
@@ -192,6 +196,7 @@ contract MedicalRecord {
         string memory _fileHash,
         string _isCorrectionFor) public {
         globalCounter++;
+        laboratoryTestsCount++;
         laboratoryTests.push(LaboratoryTest({
             id: globalCounter,
             laboratoryWorkerName: _laboratoryWorkerName,
