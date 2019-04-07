@@ -77,8 +77,9 @@ describe('MedicalRecord Contract', async () => {
 
   it('adds a new laboratory test', async () => {
     assert.equal(await medicalRecordContract.methods.laboratoryTestsCount().call(), 0);
-    await medicalRecordContract.methods.addLaboratoryTest('Mohanned Yahya', 'Blood Test', 'This is a description for the blood test', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
+    await medicalRecordContract.methods.addLaboratoryTest('King Khaled Hospital', 'Mohanned Yahya', 'Blood Test', 'This is a description for the blood test', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
     let labTest = await medicalRecordContract.methods.laboratoryTests(0).call();
+    assert.equal(labTest.hospitalName, 'King Khaled Hospital');
     assert.equal(labTest.laboratoryWorkerName, 'Mohanned Yahya');
     assert.equal(labTest.testType, 'Blood Test'); 
     assert.equal(labTest.laboratoryTestDescription, 'This is a description for the blood test');
@@ -89,8 +90,9 @@ describe('MedicalRecord Contract', async () => {
 
   it('adds a new diagnosis', async () => {
     assert.equal(await medicalRecordContract.methods.diagnosisesCount().call(), 0);
-    await medicalRecordContract.methods.addDiagnosis('Dr. Khaled Al Khateeb', 'Breast Cancer', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
+    await medicalRecordContract.methods.addDiagnosis('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Breast Cancer', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
     let diagnosis = await medicalRecordContract.methods.diagnosises(0).call();
+    assert.equal(diagnosis.hospitalName, 'King Khaled Hospital');
     assert.equal(diagnosis.doctorName, 'Dr. Khaled Al Khateeb');
     assert.equal(diagnosis.diognosisDescription, 'Breast Cancer'); 
     assert.equal(diagnosis.fileHash, 'x298id02zksoi2083kdx');
@@ -100,8 +102,9 @@ describe('MedicalRecord Contract', async () => {
   
   it('adds a new blood donation', async () => {
     assert.equal(await medicalRecordContract.methods.bloodDonationsCount().call(), 0);
-    await medicalRecordContract.methods.addBloodDonation('Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
+    await medicalRecordContract.methods.addBloodDonation('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' });
     let bloodDonation = await medicalRecordContract.methods.bloodDonations(0).call();
+    assert.equal(bloodDonation.hospitalName, 'King Khaled Hospital');
     assert.equal(bloodDonation.doctorName, 'Dr. Khaled Al Khateeb');
     assert.equal(bloodDonation.donationType, 'Red cells'); 
     assert.equal(bloodDonation.fileHash, 'x298id02zksoi2083kdx');
@@ -111,8 +114,9 @@ describe('MedicalRecord Contract', async () => {
 
   it('adds a new drug prescription', async () => {
     assert.equal(await medicalRecordContract.methods.drugPrescribtionsCount().call(), 0);
-    await medicalRecordContract.methods.addDrugPrescribtion('Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' });
+    await medicalRecordContract.methods.addDrugPrescribtion('King Khaled Hospital', 'Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' });
     let drugPrescribtion = await medicalRecordContract.methods.drugPrescribtions(0).call();
+    assert.equal(drugPrescribtion.hospitalName, 'King Khaled Hospital');
     assert.equal(drugPrescribtion.doctorName, 'Dr. Khaled Al Khateeb');
     assert.equal(drugPrescribtion.drugList, drugListString); 
     assert.equal(drugPrescribtion.isCorrectionFor, '');
@@ -120,7 +124,7 @@ describe('MedicalRecord Contract', async () => {
   });
 
   it('can mark drug as dispensed', async () => {
-    await medicalRecordContract.methods.addDrugPrescribtion('Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' });
+    await medicalRecordContract.methods.addDrugPrescribtion('King Khaled Hospital', 'Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' });
     let editedDrugList = [
       {
         drugName: 'Amoxicilum',
@@ -146,10 +150,10 @@ describe('MedicalRecord Contract', async () => {
     // adding several accounts
     await medicalRecordContract.methods.addSurgery('King Khaled Hospital', 'Open Heart Surgery', 'Dr. Khaled Al Khateeb', 8902, 'x298id02zksoi2083kdx', 'cut his stomic', '').send({ from: hospitalOne, gas: '200000000' }); // 1
     await medicalRecordContract.methods.addSurgery('King Khaled Hospital', 'Open Heart Surgery', 'Dr. Khaled Al Khateeb', 8902, 'x298id02zksoi2083kdx', 'cut his stomic', '').send({ from: hospitalOne, gas: '200000000' }); // 2
-    await medicalRecordContract.methods.addLaboratoryTest('Mohanned Yahya', 'Blood Test', 'This is a description for the blood test', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 3
-    await medicalRecordContract.methods.addDiagnosis('Dr. Khaled Al Khateeb', 'Breast Cancer', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 4
-    await medicalRecordContract.methods.addBloodDonation('Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 5
-    await medicalRecordContract.methods.addDrugPrescribtion('Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' }); // 6
+    await medicalRecordContract.methods.addLaboratoryTest('King Khaled Hospital', 'Mohanned Yahya', 'Blood Test', 'This is a description for the blood test', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 3
+    await medicalRecordContract.methods.addDiagnosis('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Breast Cancer', 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 4
+    await medicalRecordContract.methods.addBloodDonation('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 5
+    await medicalRecordContract.methods.addDrugPrescribtion('King Khaled Hospital', 'Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' }); // 6
 
     // marking a surgery transaction as a medical error
     await medicalRecordContract.methods.markTransactionAsMedicalError(1, 1).send({ from: hospitalOne, gas: '200000000' });

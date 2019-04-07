@@ -52,6 +52,7 @@ contract MedicalRecord {
 
     struct Diognosis {
         uint id;
+        string hospitalName;
         string doctorName;
         string diognosisDescription;
         uint date;
@@ -61,6 +62,7 @@ contract MedicalRecord {
 
     struct LaboratoryTest {
         uint id;
+        string hospitalName;
         string laboratoryWorkerName;
         uint date;
         string testType;
@@ -71,6 +73,7 @@ contract MedicalRecord {
 
     struct DrugPrescribtion {
         uint id;
+        string hospitalName;
         string doctorName;
         uint date;
         string drugList;
@@ -87,6 +90,7 @@ contract MedicalRecord {
 
     struct BloodDonation {
         uint id;
+        string hospitalName;
         string doctorName;
         string donationType;
         uint date;
@@ -115,6 +119,7 @@ contract MedicalRecord {
     }
 
     function addBloodDonation(
+        string _hospitalName,
         string _doctorName, 
         string _donationType,
         uint _amount,
@@ -124,6 +129,7 @@ contract MedicalRecord {
         bloodDonationsCount++;
         bloodDonations.push(BloodDonation({
             id: globalCounter,
+            hospitalName: _hospitalName,
             doctorName: _doctorName,
             donationType: _donationType,
             date: block.timestamp,
@@ -134,6 +140,7 @@ contract MedicalRecord {
     }
 
     function addDiagnosis(
+        string _hospitalName,
         string _doctorName, 
         string _diognosisDescription, 
         string _fileHash,
@@ -142,6 +149,7 @@ contract MedicalRecord {
         diagnosisesCount++;
         diagnosises.push(Diognosis({
             id: globalCounter,
+            hospitalName: _hospitalName, 
             doctorName: _doctorName,
             diognosisDescription: _diognosisDescription,
             date: block.timestamp,
@@ -151,6 +159,7 @@ contract MedicalRecord {
     }
 
     function addDrugPrescribtion(
+        string _hospitalName,
         string _doctorName, 
         string _drugList,
         string _isCorrectionFor) public {
@@ -158,6 +167,7 @@ contract MedicalRecord {
         drugPrescribtionsCount++;
         drugPrescribtions.push(DrugPrescribtion({
             id: globalCounter++,
+            hospitalName: _hospitalName,
             doctorName: _doctorName,
             date: block.timestamp,
             drugList: _drugList,
@@ -190,6 +200,7 @@ contract MedicalRecord {
     }
 
     function addLaboratoryTest(
+        string _hospitalName,
         string _laboratoryWorkerName, 
         string _testType, 
         string _laboratoryTestDescription,
@@ -199,6 +210,7 @@ contract MedicalRecord {
         laboratoryTestsCount++;
         laboratoryTests.push(LaboratoryTest({
             id: globalCounter,
+            hospitalName: _hospitalName,
             laboratoryWorkerName: _laboratoryWorkerName,
             date: block.timestamp,
             testType: _testType,
