@@ -32,6 +32,8 @@ contract MedicalRecord {
     uint public laboratoryTestsCount;
     BloodDonation[] public bloodDonations;
     uint public bloodDonationsCount;
+    Radiology[] public radiologies;
+    uint public radiologiesCount;
     string public hospitalName; // which hospital the record was submitted by
     uint public submissionDate;
     address private noAddress = address(0x0000000000000000000000000);
@@ -47,6 +49,17 @@ contract MedicalRecord {
         string isCorrectionFor; // Holds the address of another surgery to mark this one as a correction for it.
         string hospitalName;
         string surgeryName;
+        string fileHash; // hash of the uploaded image ( 0 means no file was uploaded )
+    }
+
+    struct Radiology {
+        uint id;
+        string radiologist;
+        uint date;
+        string radiologyType;
+        string description;
+        string isCorrectionFor; // Holds the address of another surgery to mark this one as a correction for it.
+        string hospitalName;
         string fileHash; // hash of the uploaded image ( 0 means no file was uploaded )
     }
 
@@ -138,6 +151,28 @@ contract MedicalRecord {
             isCorrectionFor: _isCorrectionFor
         }));
     }
+
+    function addRadiology(
+        string _hospitalName,
+        string _radiologistName, 
+        string _radiologyType,
+        string _description,
+        string memory _fileHash,
+        string _isCorrectionFor) public {
+        globalCounter++;
+        radiologiesCount++;
+        radiologies.push(Radiology({
+            id: globalCounter,
+            radiologist: _radiologistName,
+            date: block.timestamp,
+            radiologyType: _radiologyType,
+            description: _description,
+            isCorrectionFor: _isCorrectionFor,
+            hospitalName: _hospitalName,
+            fileHash: _fileHash
+        }));
+    }
+
 
     function addDiagnosis(
         string _hospitalName,
@@ -260,6 +295,12 @@ contract MedicalRecord {
                     drugPrescribtions[y].isCorrectionFor = "true";
                 }
             }            
+        } else if (_type == 6){
+            for ( uint o= 0 ; o < radiologies.length ; o++) {
+                if (radiologies[y].id == _id) {
+                    radiologies[y].isCorrectionFor = "true";
+                }
+            }      
         }
     }
     
