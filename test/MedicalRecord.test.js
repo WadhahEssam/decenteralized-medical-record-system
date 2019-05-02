@@ -6,7 +6,8 @@ const compiledMedicalRecord = require('../build/MedicalRecord.json');
 
 // const provider = ganache.provider();
 // const web3 = new Web3(provider);
-var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+// var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+// var web3 = new Web3(new Web3.providers.HttpProvider('http://10.131.192.69:7545'));
 
 let accounts, medicalRecordsSystemContract, medicalRecordContract;
 let ministryOfHelath, hospitalOne, hospitalTwo, pharmacyOne, pharmacyTwo;
@@ -167,6 +168,7 @@ describe('MedicalRecord Contract', async () => {
     await medicalRecordContract.methods.addBloodDonation('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Red cells', 12, 'x298id02zksoi2083kdx', '').send({ from: hospitalOne, gas: '200000000' }); // 5
     // await medicalRecordContract.methods.addDrugPrescribtion('King Khaled Hospital', 'Dr. Khaled Al Khateeb', drugListString, '').send({ from: hospitalOne, gas: '200000000' }); // 6
     await medicalRecordContract.methods.addRadiology('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Chest Scan', 'This is a description for the radiology test','x9812iswoeis321qA','').send({ from: hospitalOne, gas: '200000000' }); // 6
+    await medicalRecordContract.methods.addRadiology('King Khaled Hospital', 'Dr. Khaled Al Khateeb', 'Chest Scan', 'This is a description for the radiology test','x9812iswoeis321qA','').send({ from: hospitalOne, gas: '200000000' }); // 6
 
     // marking a surgery transaction as a medical error
     await medicalRecordContract.methods.markTransactionAsMedicalError(1, 1).send({ from: hospitalOne, gas: '200000000' });
@@ -190,8 +192,8 @@ describe('MedicalRecord Contract', async () => {
     // let drugPrescribtion = await medicalRecordContract.methods.drugPrescribtions(0).call();
     // assert.equal(drugPrescribtion.isCorrectionFor, 'true');
 
-    await medicalRecordContract.methods.markTransactionAsMedicalError(6, 6).send({ from: hospitalOne, gas: '200000000' });
-    let radioloy = await medicalRecordContract.methods.radiologies(0).call();
+    await medicalRecordContract.methods.markTransactionAsMedicalError(6, 7).send({ from: hospitalOne, gas: '200000000' });
+    let radioloy = await medicalRecordContract.methods.radiologies(1).call();
     assert.equal(radioloy.isCorrectionFor, 'true');
   });
 

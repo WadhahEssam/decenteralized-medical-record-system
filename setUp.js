@@ -6,7 +6,6 @@ const solc = require('solc');
 const path = require('path');
 const fs = require('fs-extra'); 
 
-
 // -- Compiling --
 // Delete the entire "build" directory
 const buildPath = path.resolve(__dirname, 'build'); 
@@ -49,6 +48,7 @@ const compiledMedicalRecord = require('./build/MedicalRecord.json');
 
 var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 // var web3 = new Web3(new Web3.providers.HttpProvider('HTTP://10.131.192.242:7545'));
+// var web3 = new Web3(new Web3.providers.HttpProvider('HTTP://172.20.10.2:7545'));
 
 deploy();
 
@@ -71,19 +71,12 @@ async function deploy()  {
     .send({ from: ministryOfHelath, gas: '30000000' });
 
   // adding hospitals 
-  await medicalRecordsSystemContract.methods.addHospital(hospitalOne, 'King Khaled Hospital').send({ from: ministryOfHelath, gas: '20000000' });
   await medicalRecordsSystemContract.methods.addHospital(hospitalTwo, 'King Abdullah Hospital').send({ from: ministryOfHelath, gas: '20000000' });
   await medicalRecordsSystemContract.methods.addHospital(hospitalThree, 'Al Salam Hospital').send({ from: ministryOfHelath, gas: '20000000' });
 
   // adding pharmacies
   await medicalRecordsSystemContract.methods.addPharmacy(pharmacyOne, 'Al Salam Pharmach').send({ from: ministryOfHelath, gas: '20000000' });
   await medicalRecordsSystemContract.methods.addPharmacy(pharmacyTwo, 'Al Wali Pharmacy').send({ from: ministryOfHelath, gas: '20000000' });
-
-  // adding medical records
-  await medicalRecordsSystemContract.methods.createMedicalRecord(455748995, 'Wadah', '9871634389', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '20000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(466374888, 'Mohammed', '9871634388', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalTwo, gas: '20000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(477589688, 'Ali', '9871634387', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalThree, gas: '20000000' });
-  await medicalRecordsSystemContract.methods.createMedicalRecord(433267373, 'Saleh', '9871634386', '0551292881', 'male', 'o+', '044239448').send({ from: hospitalOne, gas: '20000000' });
 
   console.log(medicalRecordsSystemContract.options.address);
   fs.outputJsonSync(

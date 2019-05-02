@@ -297,8 +297,8 @@ contract MedicalRecord {
             }            
         } else if (_type == 6){
             for ( uint o= 0 ; o < radiologies.length ; o++) {
-                if (radiologies[y].id == _id) {
-                    radiologies[y].isCorrectionFor = "true";
+                if (radiologies[o].id == _id) {
+                    radiologies[o].isCorrectionFor = "true";
                 }
             }      
         }
