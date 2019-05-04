@@ -14,11 +14,17 @@ The aim of this project is to develop a Decentralized Medical Record System wher
 - Ganache (personal blockchain for Ethereum development)
 - MetaMask (Ethereum blockchain adapter, allows to run decentralized applications from a web browser).
 
-### This project is part of another five sub-projects
-- Blockchain Project ( smartcontract code written in solidity programming language ) 
-- DMRS-Hospital Project ( the hospital web application that connects it to the system )
-- DMRS-Ministry-Of-Health ( the ministry of health web app )
-- DMRS-Image-Hasher ( backend that hashes images and files and returns their hashes ) 
+### Involved Projects
+- Blockchain Project - ( This Repo ) - ( smartcontract code written in solidity programming language ) 
+- DMRS-Hospital Project - https://github.com/WadhahEssam/dmrs-hospital ( the hospital web application that connects it to the system )
+- DMRS-Patient - https://github.com/AbdulrahmanKI/patientMR - ( the patient web app )
+- DMRS-Ministry-Of-Health - https://github.com/WadhahEssam/dmrs-ministry-of-health - ( the ministry of health web app )
+- DMRS-Image-Hasher-API - https://github.com/WadhahEssam/dmrs-image-hasher-api - ( backend that hashes images and files and returns their hashes ) 
+
+### Documentation 
+- First Documenation : 
+- Second Documentation :
+
 
 
 
