@@ -23,7 +23,12 @@ The aim of this project is to develop a Decentralized Medical Record System wher
 
 ### Documentation 
 - First Documenation : 
+
+https://github.com/WadhahEssam/decenteralized-medical-record-system/raw/master/documents/Graduation%20Project%20Deliverable%204.pdf
 - Second Documentation :
+
+https://github.com/WadhahEssam/decenteralized-medical-record-system/raw/master/documents/Graduation%20Project%202.pdf
+
 
 
 
